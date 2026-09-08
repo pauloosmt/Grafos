@@ -10,16 +10,17 @@ vector<bool> naPilha;      // naPilha[v]: true enquanto v ainda esta na pilha de
 int tempo = 0;              // contador global, incrementado a cada vertice descoberto
 
 // Visita u e propaga o low-link para o seu chamador (algoritmo de Tarjan).
-void dfsTarjan(int u) {
+void dfsTarjan(int u, int pai) {
    desc[u] = low[u] = tempo;   // ao descobrir u, low[u] comeca igual ao proprio tempo de descoberta
    tempo++;
    visitado[u] = true;
    naPilha[u] = true;          // u entra na pilha de recursao (ainda pode fechar uma CFC com seus ancestrais)
 
    for(int v : LA[u]) {
+    if(v == pai) continue;
     if(!visitado[v]) {
         // v ainda nao foi descoberto: aresta de arvore, desce recursivamente
-        dfsTarjan(v);
+        dfsTarjan(v, u);
         // low[u] aproveita qualquer ancestral mais antigo que v conseguiu alcancar
         low[u] = min(low[u], low[v]);
     }
@@ -45,24 +46,25 @@ void tarjan(int n) {
 
     for(int u = 0; u < n; u++) {
         if(!visitado[u]) {
-            dfsTarjan(u);
+            dfsTarjan(u, -1);
         }
     }
 }
 
 int main() {
-    int n = 7;
+    int n = 8;
     LA.assign(n,{});
 
     // Grafo direcionado de exemplo: vertices 0,1,2 formam um ciclo entre si,
     // e vertices 3,4,5 formam outro ciclo, com 6 apontando para 3.
     LA[0] = {1,2};
     LA[1] = {0, 2};
-    LA[2] = {0, 1};
+    LA[2] = {0, 1, 3};
     LA[3] = {2, 4, 5};
     LA[4] = {3, 5};
-    LA[5] = {3, 4};
-    LA[6] = {3};
+    LA[5] = {3, 4, 6};
+    LA[6] = {5,7};
+    LA[7] = {6};
 
 
     tarjan(n);
