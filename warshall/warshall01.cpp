@@ -37,7 +37,7 @@ int main() {
 
 	// Aloca dinamicamente a matriz de adjacencia n_vertices x n_vertices.
 	int** matriz_adjacencia = new int*[n_vertices];
-	for(int i = 0; i < n_vertices; i++) matriz_adjacencia[i] = new int[n_vertices];
+	for(int i = 0; i < n_vertices; i++) matriz_adjacencia[i] = new int[n_vertices]();  // () zera todas as posicoes
 
 	// Define as arestas direcionadas do grafo de exemplo:
 	// 0 -> 2, 2 -> 1, 1 -> 0, 1 -> 3
