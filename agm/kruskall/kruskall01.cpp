@@ -23,6 +23,15 @@
 // O Kruskal comeca com varias "ilhas" (cada vertice sozinho) e vai
 // juntando as ilhas com as arestas mais baratas ate sobrar uma so.
 //
+// QUANTAS ARVORES TERA A FLORESTA GERADORA MINIMA? Comecamos com N ilhas
+// (uma por vertice), e cada aresta aceita junta duas ilhas em uma so,
+// reduzindo o numero de ilhas em exatamente 1. Logo, depois de aceitar
+// "arestas_aceitas" arestas, sobram:
+//   numero_de_componentes = N_vertices - arestas_aceitas
+// Se o grafo for conexo, arestas_aceitas = N-1 e sobra 1 so componente
+// (uma arvore). Se for desconexo, sobra mais de um componente: a floresta
+// geradora minima tem exatamente "numero_de_componentes" arvores.
+//
 // COMO SABER SE DOIS VERTICES JA ESTAO CONECTADOS? Usamos a estrutura
 // "Union-Find" (conjuntos disjuntos), implementada abaixo: cada ilha e um
 // conjunto, e conseguimos perguntar "a e b estao na mesma ilha?" e
